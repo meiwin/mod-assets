@@ -1,4 +1,5 @@
 import sbt._
+import Keys._
 import PlayProject._
 
 object ApplicationBuild extends Build {
@@ -11,7 +12,13 @@ object ApplicationBuild extends Build {
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
-      // Add your own project settings here      
+      // Add your own project settings here
+      organization := "blockthirty"
+    , publishTo <<= version { (v: String) =>
+        if (v.trim.endsWith("SNAPSHOT"))
+          Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/Projects/Maven2/m2repo/snapshots")))
+        else
+          Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/Projects/Maven2/m2repo/releases")))
+      }
     )
-
 }

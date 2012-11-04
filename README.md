@@ -7,13 +7,13 @@ This module enables setting up CDNs (content delivery network) for static assets
 Configure resolver:
 
 ```scala
-resolvers += "mod-assets" at "http://mod-assets.github.com/repository"
+resolvers += "blockthirty releases" at "https://raw.github.com/meiwin/m2repo/master/releases/"
 ```
 
 Add library dependency:
 
 ```scala
-libraryDependencies += "mod-assets" %% "mod-assets" % "1.0.0"
+libraryDependencies += "blockthirty" %% "mod-assets" % "1.0.0"
 ```
 
 ## Configure `application.conf` with your CDNs
@@ -23,7 +23,7 @@ The CDN will be picked randomly.
 
 If no CDN is configured, the local assets in your project will be used.
 
-```scala
+```
 cdns=["http://cdn1.cloudfront.net", "http://cdn2.cloudfront.net"]
 ```
 
