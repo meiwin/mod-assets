@@ -41,7 +41,7 @@
 
 <p>Add library dependency:</p>
 
-<div class="highlight"><pre><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"blockthirty"</span> <span class="o">%%</span> <span class="s">"mod-assets"</span> <span class="o">%</span> <span class="s">"1.0.0"</span>
+<div class="highlight"><pre><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"blockthirty"</span> <span class="o">%%</span> <span class="s">"mod-assets"</span> <span class="o">%</span> <span class="s">"1.0.1"</span>
 </pre></div>
 
 <h2>Configure <code>application.conf</code> with your CDNs</h2>
@@ -60,6 +60,21 @@ The CDN will be picked randomly.</p>
 
 <div class="highlight"><pre><span class="o">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="o">=</span><span class="s">"@util.Assets.at("</span><span class="n">javascripts</span><span class="o">/</span><span class="n">jquery</span><span class="o">-</span><span class="mf">1.7</span><span class="o">.</span><span class="mf">1.</span><span class="n">min</span><span class="o">.</span><span class="n">js</span><span class="s">")"</span> <span class="n">type</span><span class="o">=</span><span class="s">"text/javascript"</span><span class="o">&gt;&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
 </pre></div>
+
+<p>If you have multiple assets routes defined:</p>
+
+<pre><code>...
+
+GET        /assets/*file             controller.Assets.at(path="/public", file)
+GET        /assets2/*file            controller.Assets.at(path="/public2", file)
+
+...
+</code></pre>
+
+<p>You need to provide <code>path</code> parameter:</p>
+
+<pre><code>&lt;script src="@util.Assets.at("/public", "javascripts/jquery-1.7.1.min.js")" type="text/javascript"&gt;&lt;/script&gt;
+</code></pre>
       </section>
     </div>
 
