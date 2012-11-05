@@ -13,7 +13,7 @@ resolvers += "blockthirty releases" at "https://raw.github.com/meiwin/m2repo/mas
 Add library dependency:
 
 ```scala
-libraryDependencies += "blockthirty" %% "mod-assets" % "1.0.0"
+libraryDependencies += "blockthirty" %% "mod-assets" % "1.0.1"
 ```
 
 ## Configure `application.conf` with your CDNs
