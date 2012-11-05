@@ -30,7 +30,25 @@ cdns=["http://cdn1.cloudfront.net", "http://cdn2.cloudfront.net"]
 ## Using it in your views
 
 Example:
+
 ```scala
 <script src="@util.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+```
+
+If you have multiple assets routes defined, you need to provide `path` parameter
+
+```
+...
+
+GET        /assets/*file             controller.Assets.at(path="/public", file)
+GET        /assets2/*file            controller.Assets.at(path="/public2", file)
+
+...
+```
+
+In your view codes:
+
+```
+<script src="@util.Assets.at("/public", "javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
 ```
 
