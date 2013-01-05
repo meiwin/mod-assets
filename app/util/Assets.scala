@@ -1,6 +1,7 @@
 package util
 
 import play.api.Play
+import play.api.Routes
 import play.api.mvc.Call
 import play.api.Play.current
 import scala.util.Random
@@ -17,27 +18,43 @@ object Assets {
 
   val CDNS_KEY = "cdns"
 
-  lazy val assets: Option[{ def at(file: String): Call }] = {
+  lazy val routes: Class[_] = {
     try {
-      val routes = Class.forName("controllers.routes")
+      Thread.currentThread.getContextClassLoader.loadClass("controllers.routes")
+    } catch {
+      case e: Throwable =>
+        ClassLoader.getSystemClassLoader.loadClass("controllers.routes")
+    }
+  }
+
+  val assets: Option[{ def at(file: String): Call }] = {
+
+    try {
       val assetsField = routes.getDeclaredField("Assets")
       val assets = assetsField.get(routes).asInstanceOf[{ def at(file: String): Call }]
       assets.getClass.getMethod("at", classOf[java.lang.String])
       Option(assets)
     } catch {
-      case e: Throwable => Option.empty
+      case e: Throwable => {
+        import play.api.Logger
+        Logger.warn(e.getMessage, e)
+        Option.empty
+      }
     }
   }
 
   lazy val assetsWithPath: Option[{ def at(path: String, file: String): Call }] = {
     try {
-      val routes = Class.forName("controllers.routes")
       val assetsField = routes.getDeclaredField("Assets")
       val assets = assetsField.get(routes).asInstanceOf[{ def at(path: String, file: String): Call }]
       assets.getClass.getMethod("at", classOf[java.lang.String], classOf[String])
       Option(assets)
     } catch {
-      case e: Throwable => Option.empty
+      case e: Throwable => {
+        import play.api.Logger
+        Logger.warn(e.getMessage, e)
+        Option.empty
+      }
     }
   }
 
