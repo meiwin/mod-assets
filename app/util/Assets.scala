@@ -4,6 +4,7 @@ import play.api.Play
 import play.api.mvc.Call
 import play.api.Play.current
 import scala.util.Random
+import scala.language.reflectiveCalls
 
 /**
  * Created with IntelliJ IDEA.
